@@ -1,0 +1,1024 @@
+<!doctype html>
+<html lang="en">
+<!--
+  Mingxi Yan's homepage. One hand-written file: no framework, no tracker.
+  Content lives in SITE at the top of the script; the layout only reads from it.
+  Empty fields stay off the page. Add ?draft to the URL to see them as gray slots.
+-->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mingxi Yan</title>
+<meta name="description" content="PhD candidate in Computer Science at Georgia State University. Simulation, data assimilation, and machine learning for complex dynamical systems. Tokyo.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Mingxi Yan">
+<meta property="og:description" content="PhD candidate in Computer Science at Georgia State University. Simulation, data assimilation, and machine learning for complex dynamical systems. Tokyo.">
+<meta property="og:url" content="https://sonnetyan.com/">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,300..600;1,7..72,300..600&amp;display=swap">
+<style>
+  :root {
+    --paper: #fbfbfa;
+    --ink: #16171a;
+    --ink-2: #484b51;
+    --ink-3: #85888f;
+    --rule: #e3e4e7;
+    --wash: #efeff1;
+    --serif: "Literata", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #121315;
+      --ink: #e8e9eb;
+      --ink-2: #b2b5bb;
+      --ink-3: #7d8189;
+      --rule: #2b2d32;
+      --wash: #1c1d20;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #121315;
+    --ink: #e8e9eb;
+    --ink-2: #b2b5bb;
+    --ink-3: #7d8189;
+    --rule: #2b2d32;
+    --wash: #1c1d20;
+    color-scheme: dark;
+  }
+
+  [hidden] { display: none !important; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 1.0625rem;
+    line-height: 1.62;
+    font-optical-sizing: auto;
+    font-variant-numeric: oldstyle-nums;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--ink); color: var(--paper); }
+  h1, h2, h3, p, ul, ol, dl, dd { margin: 0; }
+
+  .page {
+    max-width: 64rem;
+    margin: 0 auto;
+    padding-inline: clamp(16px, 4vw, 44px);
+    padding-block: clamp(20px, 4vw, 48px) 48px;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.22em;
+    text-decoration-color: var(--rule);
+  }
+  a:hover { text-decoration-color: currentColor; }
+  a:focus-visible, button:focus-visible, h1:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+  h1:focus:not(:focus-visible) { outline: none; }
+
+  .links { display: flex; flex-wrap: wrap; gap: 0.3rem 1.4rem; }
+
+  /* Top bar, shown on the detail views */
+  .top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem 2rem;
+    padding-bottom: 1rem;
+    margin-bottom: clamp(32px, 5vw, 56px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .top .home { font-size: 1.15rem; text-decoration: none; }
+
+  /* Hero */
+  .hero canvas { display: block; width: 100%; height: clamp(220px, 32vw, 380px); cursor: crosshair; touch-action: manipulation; }
+  .id { display: grid; gap: 0.4rem; margin-top: clamp(12px, 2.5vw, 28px); }
+  .id h1 { font-size: clamp(2.3rem, 5.4vw, 3.8rem); font-weight: 380; line-height: 1.04; letter-spacing: -0.015em; }
+  .tagline {
+    max-width: 32ch;
+    font-size: clamp(1.15rem, 2.1vw, 1.5rem);
+    font-style: italic;
+    font-weight: 350;
+    line-height: 1.35;
+    color: var(--ink-2);
+    text-wrap: balance;
+  }
+  .field { margin-top: 0.6rem; font-weight: 450; }
+  .interests { color: var(--ink-2); }
+  .id .links { margin-top: 0.7rem; }
+
+  /* Home */
+  .home-body { display: grid; gap: clamp(48px, 7vw, 88px); margin-top: clamp(44px, 6vw, 80px); }
+  .about { display: grid; gap: 1rem; max-width: 38rem; font-size: 1.12rem; }
+  .doors { display: grid; gap: clamp(40px, 5vw, 56px); }
+  @media (min-width: 760px) { .doors { grid-template-columns: 1fr 1fr; } }
+  .door, .now { display: grid; gap: 1rem; align-content: start; padding-top: 0.9rem; border-top: 1px solid var(--ink); }
+  .door h2, .now h2 { font-size: 1.4rem; font-weight: 450; line-height: 1.2; }
+  .door-body { display: grid; gap: 1.1rem; }
+  .lead { color: var(--ink-2); }
+  .door ul { display: grid; gap: 0.45rem; padding-left: 1.1rem; }
+  .door li::marker { color: var(--ink-3); }
+  .now { max-width: 38rem; }
+  .now dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 0.3rem 1.1rem; }
+  .now dt { font-style: italic; color: var(--ink-3); }
+  .meta { font-size: 0.9rem; color: var(--ink-3); }
+
+  /* Project tiles: the frame stays gray, the photos will bring the color */
+  .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr)); gap: 1.4rem 1rem; }
+  .tiles.all { grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr)); gap: 2.2rem 1.5rem; }
+  .tile { display: grid; gap: 0.35rem; align-content: start; }
+  .ph {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 4 / 3;
+    max-width: 100%;
+    margin-bottom: 0.3rem;
+    background: var(--wash);
+    border: 1px solid var(--rule);
+    color: var(--ink-3);
+    font-size: 0.82rem;
+    font-style: italic;
+  }
+  .tile h3 { font-size: 1rem; font-weight: 500; line-height: 1.35; }
+  .tile p { font-size: 0.93rem; line-height: 1.5; color: var(--ink-2); }
+  .tile .meta { color: var(--ink-3); }
+
+  /* Detail views */
+  .detail { display: grid; gap: clamp(40px, 6vw, 64px); }
+  .detail > header { display: grid; gap: 0.8rem; max-width: 40rem; }
+  .detail h1 { font-size: clamp(2rem, 4.4vw, 3rem); font-weight: 380; line-height: 1.08; letter-spacing: -0.01em; }
+  .lede { font-size: 1.12rem; color: var(--ink-2); }
+  .block { display: grid; gap: 1.1rem; max-width: 40rem; padding-top: 0.9rem; border-top: 1px solid var(--rule); }
+  .block h2 { font-size: 1rem; font-weight: 400; font-style: italic; color: var(--ink-3); }
+  .list { display: grid; gap: 1.4rem; padding: 0; list-style: none; }
+  .list li { display: grid; gap: 0.15rem; }
+  .list h3, .list .t { font-size: 1.0625rem; font-weight: 500; line-height: 1.4; text-wrap: balance; }
+  .sub { color: var(--ink-2); }
+  .sub b { font-weight: 600; color: var(--ink); }
+
+  /* Footer */
+  footer { display: grid; gap: 0.5rem; margin-top: clamp(64px, 9vw, 112px); padding-top: 1.1rem; border-top: 1px solid var(--rule); }
+  .contact { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.9rem; }
+  .contact .label { font-style: italic; color: var(--ink-3); }
+  .addr { user-select: all; }
+  button {
+    padding: 0.05rem 0.65rem;
+    font: inherit;
+    font-size: 0.88rem;
+    color: var(--ink);
+    background: transparent;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  button:hover { border-color: var(--ink-3); }
+  .note { font-size: 0.88rem; color: var(--ink-3); }
+
+  /* Real content: the headline keeps the width of the About text; long DOIs wrap on phones */
+  .field { max-width: 38rem; }
+  .doi a { overflow-wrap: anywhere; }
+  img.ph { display: block; width: 100%; object-fit: cover; }
+
+  /* Draft view (?draft): each empty field is a quiet gray slot that names what goes there */
+  .slot {
+    display: inline-block;
+    padding: 0 0.5em;
+    font-size: 0.85rem;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--ink-3);
+    background: var(--wash);
+    border: 1px dashed var(--rule);
+    border-radius: 2px;
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <header class="top" id="topbar" hidden>
+    <a class="home" href="#" data-name></a>
+    <nav class="links" aria-label="Site" data-links></nav>
+  </header>
+
+  <main>
+    <div class="view" id="home">
+      <header class="hero">
+        <canvas id="pf" role="img" aria-label="A particle filter at work: a soft cloud of dots follows a hidden, wandering path and tightens as noisy observations arrive. A click adds an observation of your own."></canvas>
+        <div class="id">
+          <h1 data-heading tabindex="-1"></h1>
+          <p class="tagline" data-tagline></p>
+          <p class="field" data-field></p>
+          <p class="interests" data-interests></p>
+          <nav class="links" aria-label="Site" data-links></nav>
+        </div>
+      </header>
+
+      <div class="home-body">
+        <div class="about" data-about></div>
+        <div class="doors">
+          <section class="door" aria-labelledby="door-research">
+            <h2 id="door-research">Research</h2>
+            <div class="door-body" data-door-research></div>
+          </section>
+          <section class="door" aria-labelledby="door-making">
+            <h2 id="door-making">Making</h2>
+            <div class="door-body" data-door-making></div>
+          </section>
+        </div>
+        <section class="now" aria-labelledby="now-h">
+          <h2 id="now-h">Now</h2>
+          <div data-now></div>
+        </section>
+      </div>
+    </div>
+
+    <article class="view detail" id="research" aria-labelledby="research-h" hidden></article>
+    <article class="view detail" id="making" aria-labelledby="making-h" hidden></article>
+  </main>
+
+  <footer id="contact">
+    <p class="contact">
+      <span class="label">Email</span>
+      <span class="addr" data-email></span>
+      <button type="button" id="copy-email">Copy</button>
+    </p>
+    <p class="note" data-updated></p>
+  </footer>
+</div>
+
+<script>
+/* ---------- Content: edit here. Everything below reads from SITE. ---------- */
+/* An empty string or list is a field not filled yet: it stays off the page, and ?draft shows it as a gray slot. */
+const SITE = {
+  name: "Mingxi Yan",
+  heading: "Mingxi (Sonnet) Yan",
+  tagline: "Seeing what a system is really doing, from a few noisy observations.",
+  field: "PhD candidate in Computer Science at Georgia State University. Simulation, data assimilation, and machine learning for complex dynamical systems. Tokyo.",
+  interests: "Also: programming, 3D printing, and more.",
+  links: [
+    ["Research", "#research"],
+    ["Making", "#making"],
+    ["CV", "cv.pdf"],
+    ["GitHub", "https://github.com/SonnetYan"],
+    ["Scholar", ""],
+    ["ORCID", ""],
+    ["LinkedIn", ""],
+    ["Email", "#contact"]
+  ],
+  about: [
+    "I build systems that estimate what is really happening inside complex, partially observable processes, and say how confident they are. My PhD develops learned observation operators for particle-filter data assimilation, validated on real highway sensor data; earlier work built the web platform and services behind a live wildfire digital twin.",
+    "Before the AI era, I was a full-stack engineer. I loved writing good code and getting the architecture right. Today I still build things end to end, but most of my attention goes to science and creative work."
+  ],
+  research: {
+    line: "From modeling and simulation to state estimation, uncertainty, forecasting, and decision support.",
+    highlights: [
+      "Dissertation: learned observation operators for particle-filter data assimilation, validated on real Caltrans PeMS data.",
+      "Online calibration of simulation models with particle filters (SIMULATION 2024, WSC 2024).",
+      "FireSim, a wildfire digital twin that runs live on the web. Others keep developing on the framework I built."
+    ],
+    lede: "I build systems that estimate what is really happening inside complex, partially observable processes, and say how confident they are.",
+    themes: [
+      {
+        title: "Learned observation operators",
+        text: "My dissertation develops learned observation operators for particle-filter data assimilation. A neural network learns how the hidden state of traffic maps to sensor readings, in place of a hand-written formula. It is trained on real Caltrans PeMS highway sensor data and tested on another year and other sensors, and the same trained network also runs inside an ensemble Kalman filter. I wrote every part myself: data pipeline, simulation, training, inference, and evaluation. This work is not yet published."
+      },
+      {
+        title: "Online calibration of simulation models",
+        text: "A particle filter takes in observations as they arrive and estimates the system's state and the model's parameters together, so the model is calibrated while it runs. With several parameters, different combinations can fit the same observations, so the true values are hard to pin down; the WSC 2024 paper studies that case."
+      },
+      {
+        title: "A live wildfire digital twin",
+        text: "I built FireSim's front end and back end on my own, then the service and web layer of the lab's cloud wildfire simulation tools. Others keep developing on that framework. FireSim runs live at",
+        link: ["firesim.cs.gsu.edu", "https://firesim.cs.gsu.edu/"]
+      }
+    ],
+    papers: [
+      {
+        title: "Data assimilation for online model calibration in discrete event simulation",
+        authors: "Xiaolin Hu, <b>Mingxi Yan</b>",
+        venue: "SIMULATION", volume: "100(6)", pages: "529-544", year: "2024",
+        doi: "10.1177/00375497231221578", pdf: "",
+        contribution: ""
+      },
+      {
+        title: "Data Assimilation for Online Calibration of Simulation Digital Twin - A Case Study With Multiple Model Parameters",
+        authors: "Xiaolin Hu, <b>Mingxi Yan</b>",
+        venue: "Winter Simulation Conference (WSC)", pages: "2844-2855", year: "2024",
+        doi: "10.1109/WSC63780.2024.10838855", pdf: "https://informs-sim.org/wsc24papers/inv175.pdf",
+        contribution: ""
+      },
+      {
+        title: "WIP: Towards Cloud-based Wildland Fire Simulation Service",
+        authors: "Xiaolin Hu, <b>Mingxi Yan</b>, Tony Derado, Wei Zhao, Bernard Zeigler, Doohwan Kim, Chungman Seo",
+        venue: "IEEE International Conference on Service-Oriented System Engineering (SOSE)", pages: "20-24", year: "2024",
+        doi: "10.1109/SOSE62363.2024.00009", pdf: "",
+        contribution: ""
+      },
+      {
+        title: "Towards A Map-Based Web Application for Prescribed Fire Simulation",
+        authors: "<b>Mingxi Yan</b>, Xiaolin Hu",
+        venue: "IEEE SoutheastCon", pages: "920-926", year: "2023",
+        doi: "10.1109/SoutheastCon51012.2023.10115091", pdf: "",
+        contribution: "Designed and built the web application, front end and back end."
+      }
+    ],
+    talks: [],
+    cv: { text: "Work history and dates are in the CV.", href: "cv.pdf" }
+  },
+  making: {
+    line: "Small projects in code, 3D printing, and more.",
+    lede: "Things I make in code, 3D printing, and more. Some are just for fun.",
+    projects: []
+  },
+  now: {
+    updated: "",
+    items: [["Working on", ""], ["Learning", ""], ["Making", ""]]
+  },
+  email: "mingxi@sonnetyan.com",
+  updated: "2026-10-04"
+};
+
+/* ---------- Layout: builds the page from SITE ---------- */
+const $ = (sel, root = document) => root.querySelector(sel);
+const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+
+/* ?draft in the URL shows each empty field as a gray slot. Without it, empty fields and sections stay off the page. */
+const DRAFT = new URLSearchParams(location.search).has("draft");
+const filled = (value) => (Array.isArray(value) ? value.length > 0 : String(value ?? "").trim() !== "");
+
+function put(node, ...kids) {  // append, skipping whatever was left out
+  node.append(...kids.filter((kid) => kid != null && kid !== false && kid !== ""));
+  return node;
+}
+
+function el(tag, attrs = {}, ...kids) {
+  const node = document.createElement(tag);
+  for (const [key, value] of Object.entries(attrs)) {
+    if (key === "text") node.textContent = value;
+    else if (key === "html") node.innerHTML = value;
+    else node.setAttribute(key, value);
+  }
+  return put(node, ...kids);
+}
+
+function slot(label) {
+  return el("span", { class: "slot", text: label });
+}
+
+function textOrSlot(tag, attrs, value, label) {  // the value; if it is empty, a slot in draft view, else nothing
+  if (filled(value)) return el(tag, { ...attrs, text: value });
+  return DRAFT ? el(tag, attrs, slot(label)) : null;
+}
+
+function fill(node, value, label) {  // the same, for an element already in the markup
+  if (filled(value)) node.textContent = value;
+  else if (DRAFT) node.replaceChildren(slot(label));
+  else node.remove();
+}
+
+function tile(p, full) {
+  const photo = filled(p.photo) ? el("img", { class: "ph", src: p.photo, alt: p.name || "", loading: "lazy" })
+    : DRAFT ? el("div", { class: "ph", text: p.kind ? `photo: ${p.kind}` : "photo" }) : null;
+  return el("article", { class: "tile" },
+    photo,
+    textOrSlot("h3", {}, p.name, "project name"),
+    textOrSlot("p", {}, p.text, "one line on what it is"),
+    full && textOrSlot("p", { class: "meta" }, p.tools, "tools"));
+}
+
+function emptyTiles(count, full) {  // draft view before any project is in: empty tiles show the shape
+  return Array.from({ length: count }, () => tile({}, full));
+}
+
+function theme(t) {
+  return el("li", {},
+    el("h3", { text: t.title }),
+    el("p", { class: "sub" }, t.text, ...(t.link ? [" ", el("a", { href: t.link[1], text: t.link[0] }), "."] : [])));
+}
+
+function paper(p) {
+  const where = [`<i>${p.venue}</i>${p.volume ? ` ${p.volume}` : ""}`, p.year, p.pages && `pp. ${p.pages}`].filter(Boolean).join(", ");
+  const doi = filled(p.doi) ? `https://doi.org/${p.doi}` : "";
+  return el("li", {},
+    el("p", { class: "t", text: p.title }),
+    el("p", { class: "sub", html: p.authors }),
+    el("p", { class: "sub", html: where }),
+    doi && el("p", { class: "sub doi" }, el("a", { href: doi, text: doi }),
+      ...(filled(p.pdf) ? [", ", el("a", { href: p.pdf, text: "PDF" })] : [])),
+    (filled(p.contribution) || DRAFT) && el("p", { class: "sub" }, el("i", { text: "My contribution:" }), " ",
+      filled(p.contribution) ? p.contribution : slot("what I did in this paper")));
+}
+
+function talk([title, where, year]) {
+  return el("li", {}, el("p", { text: title }), el("p", { class: "sub", html: `<i>${where}</i>, ${year}` }));
+}
+
+function block(id, title, ...kids) {
+  return el("section", { class: "block", id, "aria-labelledby": `${id}-h` },
+    el("h2", { id: `${id}-h`, text: title }), ...kids);
+}
+
+function render() {
+  const r = SITE.research, m = SITE.making, now = SITE.now;
+  const hasProjects = filled(m.projects), hasNow = now.items.some(([, value]) => filled(value));
+
+  $("[data-name]").textContent = SITE.name;
+  $("[data-heading]").textContent = SITE.heading;
+  fill($("[data-tagline]"), SITE.tagline, "tagline");
+  fill($("[data-field]"), SITE.field, "research field, one line");
+  fill($("[data-interests]"), SITE.interests, "interests, one line");
+  put($("[data-about]"), ...SITE.about.map((text) => textOrSlot("p", {}, text, "about, one paragraph")));
+
+  put($("[data-door-research]"),
+    textOrSlot("p", { class: "lead" }, r.line, "research, one line"),
+    el("ul", {}, ...r.highlights.map((text) => el("li", { text }))),
+    el("p", {}, el("a", { href: "#research", text: "Research and publications" })));
+
+  if (hasProjects || DRAFT) {
+    put($("[data-door-making]"),
+      textOrSlot("p", { class: "lead" }, m.line, "making, one line"),
+      el("div", { class: "tiles" }, ...(hasProjects ? m.projects.filter((p) => p.home).map((p) => tile(p, false)) : emptyTiles(4, false))),
+      el("p", {}, el("a", { href: "#making", text: "All projects" })));
+    put($("#making"),
+      el("header", {},
+        el("h1", { id: "making-h", tabindex: "-1", text: "Making" }),
+        textOrSlot("p", { class: "lede" }, m.lede, "making, a sentence or two")),
+      el("div", { class: "tiles all" }, ...(hasProjects ? m.projects.map((p) => tile(p, true)) : emptyTiles(6, true))));
+  } else {
+    $("[data-door-making]").closest(".door").remove();
+    $("#making").remove();
+  }
+
+  if (hasNow || DRAFT) {
+    put($("[data-now]"),
+      el("dl", {}, ...now.items.filter(([, value]) => filled(value) || DRAFT)
+        .flatMap(([key, value]) => [el("dt", { text: key }), el("dd", {}, filled(value) ? value : slot("one line"))])),
+      textOrSlot("p", { class: "meta" }, filled(now.updated) ? `Updated ${now.updated}` : "", "month updated"));
+  } else {
+    $("[data-now]").closest(".now").remove();
+  }
+
+  put($("#research"),
+    el("header", {},
+      el("h1", { id: "research-h", tabindex: "-1", text: "Research" }),
+      textOrSlot("p", { class: "lede" }, r.lede, "research, a sentence or two")),
+    block("themes", "Themes", el("ul", { class: "list" }, ...r.themes.map(theme))),
+    block("papers", "Publications", el("ol", { class: "list" }, ...r.papers.map(paper))),
+    (filled(r.talks) || DRAFT) && block("talks", "Talks", el("ul", { class: "list" },
+      ...(filled(r.talks) ? r.talks.map(talk) : [el("li", {}, slot("talk: title, event, year"))]))),
+    (filled(r.cv.href) || DRAFT) && block("cv", "CV", el("p", {}, filled(r.cv.text) && `${r.cv.text} `,
+      filled(r.cv.href) ? el("a", { href: r.cv.href, text: "CV (PDF)" }) : slot("CV (PDF)"))));
+
+  // Links go in last: an in-page link shows only when its section made it onto the page.
+  const link = ([text, href]) => {
+    if (!filled(href)) return DRAFT ? slot(text) : null;
+    if (href.startsWith("#") && !document.getElementById(href.slice(1))) return null;
+    return el("a", { href, text });
+  };
+  $$("[data-links]").forEach((nav) => put(nav, ...SITE.links.map(link)));
+
+  $("[data-email]").textContent = SITE.email;
+  fill($("[data-updated]"), filled(SITE.updated) ? `Last updated ${SITE.updated}` : "", "last updated");
+}
+
+/* Views: #research and #making are detail views; any other anchor scrolls within its view. */
+function route() {
+  const views = $$(".view");
+  const id = location.hash.slice(1);
+  const target = id ? document.getElementById(id) : null;
+  const shown = views.find((v) => !v.hidden) || views[0];
+  const owner = target && (target.classList.contains("view") ? target : target.closest(".view"));
+  const next = owner || (target ? shown : views[0]);
+  views.forEach((v) => { v.hidden = v !== next; });
+  $("#topbar").hidden = next.id === "home";
+  if (target && target !== next) target.scrollIntoView();
+  else window.scrollTo(0, 0);
+  if (next !== shown) $("h1", next)?.focus({ preventScroll: true });
+}
+
+render();
+route();
+window.addEventListener("hashchange", route);
+
+$("#copy-email").addEventListener("click", async (event) => {
+  const button = event.currentTarget;
+  try {
+    await navigator.clipboard.writeText(SITE.email);
+    button.textContent = "Copied";
+  } catch {
+    const range = document.createRange();
+    range.selectNodeContents($("[data-email]"));
+    const selection = getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
+    button.textContent = "Selected";
+  }
+  setTimeout(() => { button.textContent = "Copy"; }, 1600);
+});
+
+/* ---------- Hero: a live particle filter ---------- */
+(function hero() {
+  const canvas = $("#pf");
+  const ctx = canvas.getContext("2d");
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // PF-CORE-START
+  // A particle filter in the classic data assimilation setup: the model knows how the system moves,
+  // but not where it is, and the truth runs the same model (an identical-twin experiment).
+  // Act 1, 9 s: a known path; the cloud narrows like a funnel.
+  // Act 2, endless: the path wanders (a damped spring driven by noise) and the filter models that noise.
+  // The view scrolls; now and then a blind spell or a sharp turn tests the filter.
+  // Each observation is assimilated in a few gentle sub-steps (tempering).
+  // A click is an observation too, noisier than the data: the cloud listens a little, then trusts the data.
+  // World units are hero heights; the view is WD heights wide.
+  const T = 9;                 // length of act 1, seconds
+  const STEP = 1 / 60;         // fixed simulation step, seconds
+  const R = 0.2;               // data observation noise (standard deviation): each observation says little
+  const DRIFT = 0.012;         // model error in position: a small random walk, per square-root second
+  const PARTS = 4;             // sub-steps per data observation
+  const JITTER = 0.1;          // Liu-West jitter after each resample: same mean and spread, more variety
+  const PRIOR = 0.17;          // prior: a soft round cloud near the start of the path
+  const GAPS = [0.9, 0.55, 0.5, 0.45, 0.4, 0.35, 0.3];  // act 1: the first observations come slowly
+  const GAP = 0.25;            // then one every GAP seconds
+  const THETA = 0.15, KAPPA = 0.25, SIGMA = 0.025;  // act 2 wander: damping, spring, noise on vertical speed
+  const R2 = 0.1;              // act 2 data noise, reached over 4 s: better data, so losing it matters
+  const MODEL_X = 0.015, MODEL_Y = 0.035;  // act 2 position noise, the same for the truth and the model
+  const SLOW = 0.75;           // act 2 moves at 75% of act 1's speed
+  const KEEP = 0.7;            // the view keeps the estimate at 70% of its width
+  const CLICK_R = 0.25;        // a click is noisier than the data
+  const HOLD = 0.4;            // seconds a click's weights stay visible before the resample
+
+  function mulberry32(a) {
+    return function () {
+      a |= 0; a = (a + 0x6D2B79F5) | 0;
+      let t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  let rand = mulberry32(1), spare = null;
+  function gauss() {
+    if (spare !== null) { const s = spare; spare = null; return s; }
+    let u = 0; while (u === 0) u = rand();
+    const v = rand(), m = Math.sqrt(-2 * Math.log(u));
+    spare = m * Math.sin(2 * Math.PI * v);
+    return m * Math.cos(2 * Math.PI * v);
+  }
+
+  let N = 700, WD = 2.5, X0 = 0.4, X1 = 2.3, V0 = 0.2;
+  let px, py, vy, zx, zy, ox, oy, w, back, lw, idx;  // particles, a second set for resampling, scratch
+  let obs, ana, clicks, t, stepNo, obsCount, nextObs, pending, click, done;
+  let tx, ty, tvy, camX, camV, nextEvent, blindUntil, turnUntil, turnAcc, lam;
+
+  function truth(time) {  // act 1: the hidden path; the filter never sees it
+    const u = Math.min(time / T, 1);
+    return { x: X0 + (X1 - X0) * u, y: 0.5 + 0.14 * Math.sin(2 * Math.PI * u + 0.3) };
+  }
+
+  function flow(time) {  // act 1: the known model, how any state moves during one step
+    const a = truth(time), b = truth(time + STEP);
+    return { x: b.x - a.x, y: b.y - a.y };
+  }
+
+  function speed(time) {  // act 2: horizontal speed, easing down from act 1's
+    const k = Math.min(Math.max((time - T) / 2.5, 0), 1);
+    return V0 * (1 - (1 - SLOW) * k * k * (3 - 2 * k));
+  }
+
+  function noiseAt(time) {  // data noise: R in act 1, easing to R2 in act 2; the filter always knows it
+    const k = Math.min(Math.max((time - T) / 4, 0), 1);
+    return R - (R - R2) * k * k * (3 - 2 * k);
+  }
+
+  function pull(y, v) {  // act 2: damping and a spring toward the middle, with soft walls near the edges
+    return -THETA * v - KAPPA * (y - 0.5) - 6 * (Math.max(0, y - 0.8) - Math.max(0, 0.2 - y));
+  }
+
+  function alloc() {
+    const f = () => new Float64Array(N);
+    return { px: f(), py: f(), vy: f(), zx: f(), zy: f(), ox: f(), oy: f() };
+  }
+
+  function init(aspect, count) {
+    N = count;
+    WD = Math.min(Math.max(aspect, 1.3), 3.4);
+    X0 = Math.min(0.42, 0.25 * WD); X1 = WD - 0.16; V0 = (X1 - X0) / T;
+    rand = mulberry32(20260926); spare = null;
+    ({ px, py, vy, zx, zy, ox, oy } = alloc());
+    back = alloc();
+    w = new Float64Array(N).fill(1 / N); lw = new Float64Array(N); idx = new Int32Array(N);
+    const s = truth(0);
+    for (let i = 0; i < N; i++) {  // prior: a round Gaussian cloud, a little off the truth
+      px[i] = s.x + 0.04 + PRIOR * gauss();
+      py[i] = s.y - 0.05 + PRIOR * gauss();
+    }
+    zx.set(px); zy.set(py);
+    obs = []; ana = []; clicks = [];
+    t = 0; stepNo = 0; obsCount = 0; nextObs = GAPS[0]; pending = null; click = null; done = false;
+    camX = 0; camV = 0;
+  }
+
+  function mean() {
+    let mx = 0, my = 0;
+    for (let i = 0; i < N; i++) { mx += w[i] * px[i]; my += w[i] * py[i]; }
+    return { x: mx, y: my };
+  }
+
+  function cloudSize() {  // spread of the cloud: RMS distance from its mean, per axis
+    const m = mean();
+    let v = 0;
+    for (let i = 0; i < N; i++) v += w[i] * ((px[i] - m.x) ** 2 + (py[i] - m.y) ** 2);
+    return Math.sqrt(v / 2);
+  }
+
+  // Systematic resampling. glide: each dot slides from where it was drawn to its new state.
+  // split (clicks): the unlucky dots vanish and each survivor's copies start where it is drawn.
+  function resample(split) {
+    const u0 = rand() / N;
+    let c = w[0], j = 0;
+    for (let i = 0; i < N; i++) {
+      const u = u0 + i / N;
+      while (u > c && j < N - 1) { j++; c += w[j]; }
+      idx[i] = j;
+    }
+    const b = back;
+    for (let i = 0; i < N; i++) {
+      const k = idx[i];
+      b.px[i] = px[k]; b.py[i] = py[k]; b.vy[i] = vy[k]; b.zx[i] = zx[k]; b.zy[i] = zy[k];
+      b.ox[i] = split ? ox[k] : px[i] + ox[i] - px[k];
+      b.oy[i] = split ? oy[k] : py[i] + oy[i] - py[k];
+    }
+    back = { px, py, vy, zx, zy, ox, oy };
+    ({ px, py, vy, zx, zy, ox, oy } = b);
+    w.fill(1 / N);
+  }
+
+  // Liu-West jitter: shrink toward the mean and add noise, keeping the mean and the spread.
+  function jitter() {
+    const a = Math.sqrt(1 - JITTER * JITTER);
+    const dims = [[px, ox, zx], [py, oy, zy]];
+    if (done) dims.push([vy, null, null]);
+    for (const [pos, off, seen] of dims) {
+      let m = 0, v = 0;
+      for (let i = 0; i < N; i++) m += pos[i];
+      m /= N;
+      for (let i = 0; i < N; i++) v += (pos[i] - m) ** 2;
+      const s = JITTER * Math.sqrt(v / N);
+      for (let i = 0; i < N; i++) {
+        const d = (a - 1) * (pos[i] - m) + s * gauss();
+        pos[i] += d;
+        if (off) { seen[i] += d; off[i] -= d; }
+      }
+    }
+  }
+
+  function weigh(z, noise, parts, fromSeen) {  // multiply weights by the likelihood to the power 1/parts; return ESS / N
+    const k = 1 / (2 * noise * noise * parts), ax = fromSeen ? zx : px, ay = fromSeen ? zy : py;
+    let top = -Infinity, sum = 0, s2 = 0;
+    for (let i = 0; i < N; i++) {
+      const dx = ax[i] - z.x, dy = ay[i] - z.y;  // data are judged where each particle was when z was seen
+      lw[i] = Math.log(w[i]) - (dx * dx + dy * dy) * k;
+      if (lw[i] > top) top = lw[i];
+    }
+    for (let i = 0; i < N; i++) { w[i] = Math.exp(lw[i] - top); sum += w[i]; }
+    for (let i = 0; i < N; i++) { w[i] /= sum; s2 += w[i] * w[i]; }
+    return 1 / s2 / N;
+  }
+
+  function subStep() {  // one gentle sub-step of a data observation: weigh, resample, jitter
+    weigh(pending.z, pending.noise, PARTS, true);
+    resample(false);
+    jitter();
+    pending.next += pending.every;
+    if (--pending.left === 0) {
+      const m = mean();
+      ana.push(m.x, m.y, cloudSize());
+      pending = null;
+    }
+  }
+
+  // Adaptive inflation, as in ensemble data assimilation: if the data keep landing farther from the
+  // forecast than its spread explains, the filter trusts its forecast less and widens the cloud.
+  function inflate(z, r) {
+    const m = mean();
+    let vxx = 0, vyy = 0, mv = 0;
+    for (let i = 0; i < N; i++) { vxx += (px[i] - m.x) ** 2; vyy += (py[i] - m.y) ** 2; mv += vy[i]; }
+    mv /= N;
+    const surprise = ((z.x - m.x) ** 2 + (z.y - m.y) ** 2) / 2 / ((vxx + vyy) / 2 / N + r * r);
+    lam = Math.max(1, 0.8 * lam + 0.2 * surprise);
+    const f = Math.sqrt(1 + Math.max(0, lam - 1.6));
+    if (f < 1.001) return;
+    for (let i = 0; i < N; i++) {
+      const dx = (f - 1) * (px[i] - m.x), dy = (f - 1) * (py[i] - m.y);
+      px[i] += dx; py[i] += dy; ox[i] -= dx; oy[i] -= dy;
+      vy[i] = mv + f * (vy[i] - mv);
+    }
+  }
+
+  function observe(z) {
+    inflate(z, noiseAt(t));
+    obs.push(z);
+    zx.set(px); zy.set(py);
+    pending = { z, noise: noiseAt(t), left: PARTS, every: Math.max(1, Math.floor(GAP / STEP / PARTS)), next: stepNo };
+  }
+
+  // A click: a far click is a surprise, so the cloud first widens (adaptive inflation, Gaussian),
+  // then is weighed by the click's likelihood. The weights stay visible for HOLD seconds, then resample.
+  function clickAt(z) {
+    if (click) resolveClick();
+    while (pending) subStep();
+    const m = mean(), s = Math.min(0.35 * Math.hypot(z.x - m.x, z.y - m.y), 0.3);
+    for (let i = 0; i < N; i++) {
+      const dx = s * gauss(), dy = s * gauss();
+      px[i] += dx; py[i] += dy; ox[i] -= dx; oy[i] -= dy;
+    }
+    weigh(z, CLICK_R, 1, false);
+    click = { z, until: t + HOLD };
+    clicks.push({ x: z.x, y: z.y, t });
+    if (clicks.length > 40) clicks.shift();
+  }
+
+  function resolveClick() {
+    resample(true);
+    jitter();
+    const m = mean();
+    ana.push(m.x, m.y, cloudSize());
+    if (nextObs < t + 0.1) nextObs = t + 0.1;
+    click = null;
+  }
+
+  function startAct2() {  // the path turns random from here; every particle takes the known vertical speed
+    done = true;
+    const a = truth(T), b = truth(T - STEP);
+    tx = a.x; ty = a.y; tvy = (a.y - b.y) / STEP;
+    for (let i = 0; i < N; i++) vy[i] = tvy + 0.01 * gauss();
+    nextEvent = T + 14 + 10 * rand();
+    blindUntil = 0; turnUntil = 0; turnAcc = 0; lam = 1;
+  }
+
+  function events() {  // now and then: a blind spell (no data) or a sharp turn the model does not expect
+    if (t < nextEvent) return;
+    nextEvent = t + 15 + 15 * rand();
+    if (rand() < 0.5) { blindUntil = t + 2 + rand(); return; }
+    const away = ty - 0.5;
+    turnAcc = (Math.abs(away) > 0.05 ? -Math.sign(away) : (rand() < 0.5 ? -1 : 1)) * 0.45;
+    turnUntil = t + 0.6;
+  }
+
+  function camera() {  // keep the estimate near KEEP of the view: a smooth, critically damped follow
+    const target = mean().x - KEEP * WD, wn = 0.8;
+    camV += (wn * wn * (target - camX) + 2 * wn * (speed(t) - camV)) * STEP;
+    camX += camV * STEP;
+  }
+
+  function prune() {  // forget what has scrolled out of view, so memory stays flat
+    const edge = camX - 0.3;
+    while (obs.length && (obs[0].x < edge || obs.length > 200)) obs.shift();
+    while (clicks.length && clicks[0].x < edge) clicks.shift();
+    while (ana.length > 6 && (ana[3] < edge || ana.length > 900)) ana.splice(0, 3);
+  }
+
+  function step() {  // move every particle with the model; assimilate what is due
+    const q = DRIFT * Math.sqrt(STEP);
+    if (!done) {
+      const f = flow(t);
+      for (let i = 0; i < N; i++) {
+        px[i] += f.x + q * gauss();
+        py[i] += f.y + q * gauss();
+      }
+    } else {
+      const v = speed(t) * STEP, g = SIGMA * Math.sqrt(STEP), mx = MODEL_X * Math.sqrt(STEP), my = MODEL_Y * Math.sqrt(STEP);
+      tvy += (pull(ty, tvy) + (t < turnUntil ? turnAcc : 0)) * STEP + g * gauss();
+      tx += v + mx * gauss();
+      ty += tvy * STEP + my * gauss();
+      for (let i = 0; i < N; i++) {
+        vy[i] += pull(py[i], vy[i]) * STEP + g * gauss();
+        px[i] += v + mx * gauss();
+        py[i] += vy[i] * STEP + my * gauss();
+      }
+    }
+    t += STEP; stepNo++;
+    if (click && t >= click.until) resolveClick();
+    if (!click && !done) {
+      if (t >= nextObs - 1e-9 && nextObs < T - 0.3) {
+        while (pending) subStep();
+        const s = truth(t), z = { x: s.x + R * gauss(), y: s.y + R * gauss() };
+        const gap = obsCount + 1 < GAPS.length ? GAPS[obsCount + 1] : GAP;
+        obs.push(z);
+        zx.set(px); zy.set(py);
+        pending = { z, noise: R, left: PARTS, every: Math.max(1, Math.floor(gap / STEP / PARTS)), next: stepNo };
+        obsCount++; nextObs += gap;
+      }
+    } else if (!click && t >= nextObs - 1e-9) {
+      nextObs += GAP;
+      if (t >= blindUntil) { const r = noiseAt(t); observe({ x: tx + r * gauss(), y: ty + r * gauss() }); }
+      else { const m = mean(); ana.push(m.x, m.y, cloudSize()); }  // blind: the forecast is the estimate
+    }
+    if (pending && stepNo >= pending.next) subStep();
+    if (done) { events(); camera(); prune(); }
+    if (!done && t >= T - 1e-9) {
+      if (click) resolveClick();
+      while (pending) subStep();
+      startAct2();
+    }
+  }
+  // PF-CORE-END
+
+  const WIDE = 0.11, TIGHT = 0.045;  // cloud sizes where the estimate line is faintest and fully dark
+  const SHADES = [[0.8, 0.95, 2.1], [0.55, 0.75, 1.8], [0.3, 0.5, 1.5], [0.12, 0.3, 1.25], [0, 0.12, 1.1]];  // click: weight, alpha, radius
+  let W = 0, H = 0, started = false, running = false, visible = true, last = 0, acc = 0, lastClick = -1e9;
+  let colors = null, shade = null;
+
+  function readColors() {
+    const css = getComputedStyle(document.documentElement), get = (name) => css.getPropertyValue(name).trim();
+    colors = { ink: get("--ink"), ink2: get("--ink-2"), ink3: get("--ink-3") };
+  }
+
+  function relax(dt) {  // glide drawn dots toward their state
+    const k = Math.exp(-dt / 0.3);
+    for (let i = 0; i < N; i++) { ox[i] *= k; oy[i] *= k; }
+  }
+
+  function confidence(size) {  // 0 while the cloud is wide, 1 once it is tight
+    const c = Math.min(1, Math.max(0, (WIDE - size) / (WIDE - TIGHT)));
+    return c * c;
+  }
+
+  function rgba(hex, alpha) {
+    const n = parseInt(hex.slice(1), 16);
+    return `rgba(${n >> 16}, ${(n >> 8) & 255}, ${n & 255}, ${alpha.toFixed(3)})`;
+  }
+
+  function controls(p0, p1, p2, p3) {  // centripetal Catmull-Rom as Bezier handles: no loops, no cusps
+    const d1 = Math.hypot(p1[0] - p0[0], p1[1] - p0[1]);
+    const d2 = Math.hypot(p2[0] - p1[0], p2[1] - p1[1]);
+    const d3 = Math.hypot(p3[0] - p2[0], p3[1] - p2[1]);
+    const a1 = Math.sqrt(d1), a2 = Math.sqrt(d2), a3 = Math.sqrt(d3);
+    const c1 = d1 < 1e-9 ? p1 : [0, 1].map((k) => (d1 * p2[k] - d2 * p0[k] + (2 * d1 + 3 * a1 * a2 + d2) * p1[k]) / (3 * a1 * (a1 + a2)));
+    const c2 = d3 < 1e-9 ? p2 : [0, 1].map((k) => (d3 * p1[k] - d2 * p3[k] + (2 * d3 + 3 * a3 * a2 + d2) * p2[k]) / (3 * a3 * (a3 + a2)));
+    return [c1, c2];
+  }
+
+  function dot(x, y, r) { ctx.moveTo(x + r, y); ctx.arc(x, y, r, 0, 2 * Math.PI); }
+
+  function cross(x, y, a) {
+    ctx.beginPath();
+    ctx.moveTo(x - a, y - a); ctx.lineTo(x + a, y + a);
+    ctx.moveTo(x + a, y - a); ctx.lineTo(x - a, y + a);
+    ctx.stroke();
+  }
+
+  function draw() {
+    if (!W || !H) return;
+    if (!colors) readColors();
+    const sx = W / WD, sy = H, X = (x) => (x - camX) * sx;
+    const fade = (x) => Math.min(1, Math.max(0, (x / W - 0.02) / 0.2));  // things fade out before the left edge
+    ctx.clearRect(0, 0, W, H);
+
+    ctx.fillStyle = colors.ink3;  // particles; while a click is weighed, each is shaded by its likelihood
+    if (click) {
+      if (!shade || shade.length !== N) shade = new Float64Array(N);
+      const k = 1 / (2 * CLICK_R * CLICK_R);
+      let top = 0;
+      for (let i = 0; i < N; i++) {
+        const dx = px[i] + ox[i] - click.z.x, dy = py[i] + oy[i] - click.z.y;
+        shade[i] = Math.exp(-(dx * dx + dy * dy) * k);
+        if (shade[i] > top) top = shade[i];
+      }
+      let hi = Infinity;
+      for (const [lo, alpha, r] of SHADES) {
+        ctx.globalAlpha = alpha;
+        ctx.beginPath();
+        for (let i = 0; i < N; i++) {
+          const v = shade[i] / top;
+          if (v >= lo && v < hi) dot(X(px[i] + ox[i]), (py[i] + oy[i]) * sy, r);
+        }
+        ctx.fill();
+        hi = lo;
+      }
+    } else {
+      ctx.globalAlpha = 0.5;
+      ctx.beginPath();
+      for (let i = 0; i < N; i++) dot(X(px[i] + ox[i]), (py[i] + oy[i]) * sy, 1.3);
+      ctx.fill();
+    }
+
+    ctx.strokeStyle = colors.ink3;  // data: small and light; older ones fade
+    ctx.lineWidth = 1;
+    obs.forEach((o, k) => {
+      const x = X(o.x);
+      ctx.globalAlpha = (0.3 + 0.55 * Math.exp(-(obs.length - 1 - k) / 6)) * fade(x);
+      if (ctx.globalAlpha > 0.01) cross(x, o.y * sy, 2.5);
+    });
+
+    for (const c of clicks) {  // clicks: darker; a ring opens and fades as they land
+      const x = X(c.x), y = c.y * sy, age = t - c.t, f = fade(x);
+      if (f < 0.01) continue;
+      ctx.strokeStyle = colors.ink;
+      ctx.lineWidth = 1.4;
+      ctx.globalAlpha = (0.5 + 0.4 * Math.exp(-age / 4)) * f;
+      cross(x, y, 3.5);
+      if (age < 0.5) {
+        ctx.strokeStyle = colors.ink2;
+        ctx.lineWidth = 1;
+        ctx.globalAlpha = 0.55 * (1 - age / 0.5) * f;
+        ctx.beginPath();
+        ctx.arc(x, y, 3 + 22 * (age / 0.5), 0, 2 * Math.PI);
+        ctx.stroke();
+      }
+    }
+    ctx.globalAlpha = 1;
+
+    const pts = [];  // the estimate after each observation, then the live head; darker when the cloud is tight
+    for (let k = 0; k < ana.length; k += 3) pts.push([X(ana[k]), ana[k + 1] * sy, ana[k + 2]]);
+    if (pts.length) { const m = mean(); pts.push([X(m.x), m.y * sy, cloudSize()]); }
+    if (pts.length < 2) return;
+    const x0 = Math.min(...pts.map((p) => p[0])), span = Math.max(Math.max(...pts.map((p) => p[0])) - x0, 1);
+    const grad = ctx.createLinearGradient(x0, 0, x0 + span, 0);
+    let at = 0;
+    for (const p of pts) {
+      at = Math.max(at, (p[0] - x0) / span);
+      grad.addColorStop(Math.min(at, 1), rgba(colors.ink, (0.1 + 0.9 * confidence(p[2])) * fade(p[0])));
+    }
+    ctx.strokeStyle = grad;
+    ctx.lineWidth = 1.5;
+    ctx.lineJoin = "round";
+    ctx.lineCap = "round";
+    ctx.beginPath();
+    ctx.moveTo(pts[0][0], pts[0][1]);
+    for (let i = 0; i < pts.length - 1; i++) {
+      const [c1, c2] = controls(pts[Math.max(i - 1, 0)], pts[i], pts[i + 1], pts[Math.min(i + 2, pts.length - 1)]);
+      ctx.bezierCurveTo(c1[0], c1[1], c2[0], c2[1], pts[i + 1][0], pts[i + 1][1]);
+    }
+    ctx.stroke();
+  }
+
+  function frame(now) {
+    if (!visible || document.hidden) { running = false; last = 0; return; }  // paused off screen
+    requestAnimationFrame(frame);
+    if (last && now - last < 15) return;  // at most about 60 frames a second
+    const dt = last ? Math.min((now - last) / 1000, 0.05) : 0;
+    last = now;
+    acc += dt;
+    while (acc >= STEP) { step(); acc -= STEP; }
+    relax(dt);
+    draw();
+  }
+
+  function kick() {
+    if (running || reduce || !started || !visible || document.hidden) return;
+    running = true;
+    last = 0;
+    requestAnimationFrame(frame);
+  }
+
+  // A click (or tap) is an observation: an x where you clicked, then the weighing, then the resample.
+  canvas.addEventListener("click", (event) => {
+    const now = performance.now();
+    if (!started || now - lastClick < 300) return;
+    lastClick = now;
+    const box = canvas.getBoundingClientRect();
+    clickAt({ x: camX + ((event.clientX - box.left) / box.width) * WD, y: (event.clientY - box.top) / box.height });
+    if (reduce) { resolveClick(); ox.fill(0); oy.fill(0); }
+    draw();
+  });
+
+  function resize() {
+    const box = canvas.getBoundingClientRect();
+    if (!box.width || !box.height) return;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = box.width; H = box.height;
+    canvas.width = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    if (!started) {
+      started = true;
+      init(W / H, W < 600 ? 400 : 700);
+      if (reduce) { while (!done) step(); ox.fill(0); oy.fill(0); }  // reduced motion: the end of act 1, still
+    }
+    draw();
+    kick();
+  }
+
+  if ("ResizeObserver" in window) new ResizeObserver(resize).observe(canvas);
+  else { window.addEventListener("resize", resize); resize(); }
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver((entries) => { visible = entries[entries.length - 1].isIntersecting; kick(); }).observe(canvas);
+  }
+  document.addEventListener("visibilitychange", kick);
+  const retheme = () => { readColors(); draw(); };
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", retheme);
+  new MutationObserver(retheme).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+})();
+</script>
+</body>
+</html>
