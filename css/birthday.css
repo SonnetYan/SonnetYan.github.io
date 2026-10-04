@@ -52,3 +52,8 @@
   text-align: center;
   color: #8d8a84;
 }
+
+/* Reduced motion: no fireworks (js/birthday.js), and the words simply appear. */
+@media (prefers-reduced-motion: reduce) {
+  .bd-card > *, .bd-hint { transition: none; transform: none; }
+}

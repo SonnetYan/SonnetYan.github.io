@@ -33,9 +33,10 @@
 
 [hidden] { display: none !important; }
 
-/* Phases (js/main.js sets <html data-phase>): the homepage stays hidden until the clock has decided,
-   and while the holding page is up. During the birthday it waits underneath the night sky. */
-html:not([data-phase]) .page, [data-phase="construction"] .page { visibility: hidden; }
+/* Phases (js/main.js sets <html data-phase>): the homepage is not rendered until the clock has decided,
+   nor while the holding page is up (so nothing scrolls behind it). During the birthday it waits
+   underneath the night sky. */
+html:not([data-phase]) .page, [data-phase="construction"] .page { display: none; }
 body {
   background: var(--paper);
   color: var(--ink);

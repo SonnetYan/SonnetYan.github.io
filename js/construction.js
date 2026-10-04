@@ -8,6 +8,7 @@ import { $ } from "./dom.js";
 
 const TAPS = 3, WITHIN = 1500;  // taps needed, and the time they must fall in (ms)
 
+// Shows the holding page; returns hide(), for when the clock moves on while it is open.
 export function showConstruction(onSecret) {
   const box = $("#construction");
   box.hidden = false;
@@ -21,4 +22,5 @@ export function showConstruction(onSecret) {
     box.hidden = true;
     onSecret();
   });
+  return () => { box.hidden = true; };
 }

@@ -12,7 +12,7 @@ css/site.css          the homepage: theme tokens, layout, hero, detail views, dr
 css/construction.css  the holding page shown before her birthday
 css/birthday.css      the birthday night sky and greeting
 js/main.js            entry point: builds the page, asks the clock which face to show
-js/content.js         every word on the site; edit content here and nowhere else
+js/content.js         the homepage's content and the birthday greeting; edit them here
 js/render.js          builds the homepage from content.js
 js/router.js          #research and #making detail views
 js/copy-email.js      the Copy button next to the email
@@ -32,6 +32,8 @@ Each file starts with a comment that says what it does and what it leaves to oth
 ## Editing content
 
 Change `js/content.js`, then update `updated` there. Empty fields stay off the page.
+The fixed words around the content (section headings, link labels, the holding page, meta tags) are in
+`index.html` and `js/render.js`.
 Open the page with `?draft` to see every empty field as a gray slot that names what goes there.
 
 ## Three faces (js/clock.js)
@@ -43,6 +45,7 @@ after that                                              the homepage
 ```
 
 The phase comes from the visitor's clock, compared in UTC, so every time zone switches at the same moment.
+A holding page left open switches by itself when the birthday starts.
 
 ## Previewing
 
@@ -69,6 +72,9 @@ at GitHub Pages; without it the site is at https://sonnetyan.github.io/.
 
 ## After the birthday
 
-From 2026-10-15 the clock always answers "site". The holding page and the birthday then never show and
-can be removed: `js/construction.js`, `js/birthday.js`, their CSS, `BIRTHDAY` in `js/content.js`, their markup
-in `index.html`, and the two branches in `js/main.js`.
+From 2026-10-15 04:00 UTC the clock answers "site" unless `?preview` or `?now` asks otherwise. To remove the
+holding page and the birthday, take out all of these together, or the page will not start:
+`js/construction.js`, `js/birthday.js`, `css/construction.css`, `css/birthday.css`, `BIRTHDAY` in `js/content.js`;
+in `js/main.js` their imports, `birthday()`, `watchClock()` and the first two branches at the end; in `index.html`
+their stylesheet and modulepreload links and the `#construction` and `#birthday` markup; and `js/clock.js` with
+its test if nothing else needs it.
