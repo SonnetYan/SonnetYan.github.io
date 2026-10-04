@@ -1,0 +1,54 @@
+/* Her birthday (js/birthday.js): a night sky over the whole page, the greeting in the middle.
+   The night keeps its own colors in both themes; the type is the site's. */
+
+.birthday {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  color: #f4efe6;
+  background: rgb(16, 17, 21);
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 1.4s ease;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+.birthday.lifting { opacity: 0; pointer-events: none; }
+.birthday canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+.bd-card {
+  position: relative;
+  display: grid;
+  gap: 1rem;
+  max-width: 46rem;
+  padding: 16px;
+  text-align: center;
+  text-shadow: 0 0 18px rgba(16, 17, 21, 0.9), 0 0 4px rgba(16, 17, 21, 0.8);
+}
+.bd-card > *, .bd-hint { opacity: 0; transform: translateY(6px); transition: opacity 1.2s ease, transform 1.2s ease; }
+.bd-card > .on, .bd-hint.on { opacity: 1; transform: none; }
+
+.bd-title { font-size: clamp(2.1rem, 6vw, 3.6rem); font-weight: 380; line-height: 1.08; letter-spacing: -0.015em; }
+.bd-line { max-width: 34rem; margin-inline: auto; font-size: clamp(1.1rem, 2.4vw, 1.4rem); font-style: italic; font-weight: 350; line-height: 1.42; color: #e2dbcf; text-wrap: balance; }
+.bd-from { margin-top: 0.5rem; font-size: 1rem; color: #bdb6aa; }
+.bd-from .name {
+  display: block;
+  margin-top: 0.25rem;
+  font-family: "Songti SC", "STSong", "Noto Serif CJK SC", "Source Han Serif SC", "SimSun", serif;
+  font-size: 1.35rem;
+  letter-spacing: 0.1em;
+  color: #f4efe6;
+}
+.bd-hint {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: max(24px, env(safe-area-inset-bottom));
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-align: center;
+  color: #8d8a84;
+}

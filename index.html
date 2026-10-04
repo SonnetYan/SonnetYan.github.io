@@ -1,21 +1,107 @@
 <!doctype html>
 <html lang="en">
+<!--
+  Mingxi Yan's homepage, sonnetyan.com. Hand-written: no framework, no build step, no tracker,
+  nothing loaded from other sites. Start with README.md; content is in js/content.js.
+-->
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mingxi Yan</title>
-<meta name="robots" content="noindex">
-<style>
-  :root { --paper: #fbfbfa; --ink: #16171a; --ink-3: #85888f; color-scheme: light dark; }
-  @media (prefers-color-scheme: dark) { :root { --paper: #121315; --ink: #e8e9eb; --ink-3: #7d8189; } }
-  html, body { height: 100%; margin: 0; }
-  body { display: grid; place-items: center; background: var(--paper); color: var(--ink);
-         font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; }
-  p { margin: 0; text-align: center; font-size: 1.15rem; }
-  small { display: block; margin-top: 0.5rem; color: var(--ink-3); font-size: 0.85rem; letter-spacing: 0.04em; }
-</style>
+<meta name="description" content="PhD candidate in Computer Science at Georgia State University. Simulation, data assimilation, and machine learning for complex dynamical systems. Tokyo.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Mingxi Yan">
+<meta property="og:description" content="PhD candidate in Computer Science at Georgia State University. Simulation, data assimilation, and machine learning for complex dynamical systems. Tokyo.">
+<meta property="og:url" content="https://sonnetyan.com/">
+<meta name="twitter:card" content="summary">
+<link rel="preload" href="fonts/literata-latin-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/literata-latin-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/construction.css">
+<link rel="stylesheet" href="css/birthday.css">
+<link rel="modulepreload" href="js/content.js">
+<link rel="modulepreload" href="js/dom.js">
+<link rel="modulepreload" href="js/render.js">
+<link rel="modulepreload" href="js/router.js">
+<link rel="modulepreload" href="js/copy-email.js">
+<link rel="modulepreload" href="js/clock.js">
+<link rel="modulepreload" href="js/construction.js">
+<link rel="modulepreload" href="js/birthday.js">
+<link rel="modulepreload" href="js/hero/view.js">
+<link rel="modulepreload" href="js/hero/filter.js">
+<script type="module" src="js/main.js"></script>
 </head>
 <body>
-<p>Under construction.<small>sonnetyan.com</small></p>
+
+<noscript><p style="padding: 16px">Mingxi Yan. This page needs JavaScript. Email: mingxi@sonnetyan.com</p></noscript>
+
+<div class="page">
+  <header class="top" id="topbar" hidden>
+    <a class="home" href="#" data-name></a>
+    <nav class="links" aria-label="Site" data-links></nav>
+  </header>
+
+  <main>
+    <div class="view" id="home">
+      <header class="hero">
+        <canvas id="pf" role="img" aria-label="A particle filter at work: a soft cloud of dots follows a hidden, wandering path and tightens as noisy observations arrive. A click adds an observation of your own."></canvas>
+        <div class="id">
+          <h1 data-heading tabindex="-1"></h1>
+          <p class="tagline" data-tagline></p>
+          <p class="field" data-field></p>
+          <p class="interests" data-interests></p>
+          <nav class="links" aria-label="Site" data-links></nav>
+        </div>
+      </header>
+
+      <div class="home-body">
+        <div class="about" data-about></div>
+        <div class="doors">
+          <section class="door" aria-labelledby="door-research">
+            <h2 id="door-research">Research</h2>
+            <div class="door-body" data-door-research></div>
+          </section>
+          <section class="door" aria-labelledby="door-making">
+            <h2 id="door-making">Making</h2>
+            <div class="door-body" data-door-making></div>
+          </section>
+        </div>
+        <section class="now" aria-labelledby="now-h">
+          <h2 id="now-h">Now</h2>
+          <div data-now></div>
+        </section>
+      </div>
+    </div>
+
+    <article class="view detail" id="research" aria-labelledby="research-h" hidden></article>
+    <article class="view detail" id="making" aria-labelledby="making-h" hidden></article>
+  </main>
+
+  <footer id="contact">
+    <p class="contact">
+      <span class="label">Email</span>
+      <span class="addr" data-email></span>
+      <button type="button" id="copy-email">Copy</button>
+    </p>
+    <p class="note" data-updated></p>
+  </footer>
+</div>
+
+<section class="construction" id="construction" aria-label="Under construction" hidden>
+  <p class="line">Under construction<span data-secret>.</span></p>
+  <p class="site">sonnetyan.com</p>
+</section>
+
+<div class="birthday" id="birthday" role="dialog" aria-modal="true" aria-labelledby="bd-title" tabindex="-1" hidden>
+  <canvas aria-hidden="true"></canvas>
+  <div class="bd-card">
+    <h1 class="bd-title" id="bd-title" data-bd-title></h1>
+    <p class="bd-line" data-bd-line></p>
+    <p class="bd-from" data-bd-from><span data-bd-from-text></span><span class="name" lang="zh-Hans" data-bd-name></span></p>
+  </div>
+  <p class="bd-hint" data-bd-hint></p>
+</div>
+
 </body>
 </html>

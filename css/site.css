@@ -1,0 +1,186 @@
+/* The homepage: light and dark themes, layout, hero, home, detail views, footer, draft slots.
+   Colors are tokens on :root; every rule below uses them. data-theme="light"|"dark" on <html> forces a theme. */
+:root {
+  --paper: #fbfbfa;
+  --ink: #16171a;
+  --ink-2: #484b51;
+  --ink-3: #85888f;
+  --rule: #e3e4e7;
+  --wash: #efeff1;
+  --serif: "Literata", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #121315;
+    --ink: #e8e9eb;
+    --ink-2: #b2b5bb;
+    --ink-3: #7d8189;
+    --rule: #2b2d32;
+    --wash: #1c1d20;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #121315;
+  --ink: #e8e9eb;
+  --ink-2: #b2b5bb;
+  --ink-3: #7d8189;
+  --rule: #2b2d32;
+  --wash: #1c1d20;
+  color-scheme: dark;
+}
+
+[hidden] { display: none !important; }
+
+/* Phases (js/main.js sets <html data-phase>): the homepage stays hidden until the clock has decided,
+   and while the holding page is up. During the birthday it waits underneath the night sky. */
+html:not([data-phase]) .page, [data-phase="construction"] .page { visibility: hidden; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 1.0625rem;
+  line-height: 1.62;
+  font-optical-sizing: auto;
+  font-variant-numeric: oldstyle-nums;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--ink); color: var(--paper); }
+h1, h2, h3, p, ul, ol, dl, dd { margin: 0; }
+
+.page {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding-inline: clamp(16px, 4vw, 44px);
+  padding-block: clamp(20px, 4vw, 48px) 48px;
+}
+
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  text-decoration-color: var(--rule);
+}
+a:hover { text-decoration-color: currentColor; }
+a:focus-visible, button:focus-visible, h1:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+h1:focus:not(:focus-visible) { outline: none; }
+
+.links { display: flex; flex-wrap: wrap; gap: 0.3rem 1.4rem; }
+
+/* Top bar, shown on the detail views */
+.top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 2rem;
+  padding-bottom: 1rem;
+  margin-bottom: clamp(32px, 5vw, 56px);
+  border-bottom: 1px solid var(--rule);
+}
+.top .home { font-size: 1.15rem; text-decoration: none; }
+
+/* Hero */
+.hero canvas { display: block; width: 100%; height: clamp(220px, 32vw, 380px); cursor: crosshair; touch-action: manipulation; }
+.id { display: grid; gap: 0.4rem; margin-top: clamp(12px, 2.5vw, 28px); }
+.id h1 { font-size: clamp(2.3rem, 5.4vw, 3.8rem); font-weight: 380; line-height: 1.04; letter-spacing: -0.015em; }
+.tagline {
+  max-width: 32ch;
+  font-size: clamp(1.15rem, 2.1vw, 1.5rem);
+  font-style: italic;
+  font-weight: 350;
+  line-height: 1.35;
+  color: var(--ink-2);
+  text-wrap: balance;
+}
+.field { margin-top: 0.6rem; font-weight: 450; }
+.interests { color: var(--ink-2); }
+.id .links { margin-top: 0.7rem; }
+
+/* Home */
+.home-body { display: grid; gap: clamp(48px, 7vw, 88px); margin-top: clamp(44px, 6vw, 80px); }
+.about { display: grid; gap: 1rem; max-width: 38rem; font-size: 1.12rem; }
+.doors { display: grid; gap: clamp(40px, 5vw, 56px); }
+@media (min-width: 760px) { .doors { grid-template-columns: 1fr 1fr; } }
+.door, .now { display: grid; gap: 1rem; align-content: start; padding-top: 0.9rem; border-top: 1px solid var(--ink); }
+.door h2, .now h2 { font-size: 1.4rem; font-weight: 450; line-height: 1.2; }
+.door-body { display: grid; gap: 1.1rem; }
+.lead { color: var(--ink-2); }
+.door ul { display: grid; gap: 0.45rem; padding-left: 1.1rem; }
+.door li::marker { color: var(--ink-3); }
+.now { max-width: 38rem; }
+.now dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 0.3rem 1.1rem; }
+.now dt { font-style: italic; color: var(--ink-3); }
+.meta { font-size: 0.9rem; color: var(--ink-3); }
+
+/* Project tiles: the frame stays gray, the photos will bring the color */
+.tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr)); gap: 1.4rem 1rem; }
+.tiles.all { grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr)); gap: 2.2rem 1.5rem; }
+.tile { display: grid; gap: 0.35rem; align-content: start; }
+.ph {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 3;
+  max-width: 100%;
+  margin-bottom: 0.3rem;
+  background: var(--wash);
+  border: 1px solid var(--rule);
+  color: var(--ink-3);
+  font-size: 0.82rem;
+  font-style: italic;
+}
+.tile h3 { font-size: 1rem; font-weight: 500; line-height: 1.35; }
+.tile p { font-size: 0.93rem; line-height: 1.5; color: var(--ink-2); }
+.tile .meta { color: var(--ink-3); }
+
+/* Detail views */
+.detail { display: grid; gap: clamp(40px, 6vw, 64px); }
+.detail > header { display: grid; gap: 0.8rem; max-width: 40rem; }
+.detail h1 { font-size: clamp(2rem, 4.4vw, 3rem); font-weight: 380; line-height: 1.08; letter-spacing: -0.01em; }
+.lede { font-size: 1.12rem; color: var(--ink-2); }
+.block { display: grid; gap: 1.1rem; max-width: 40rem; padding-top: 0.9rem; border-top: 1px solid var(--rule); }
+.block h2 { font-size: 1rem; font-weight: 400; font-style: italic; color: var(--ink-3); }
+.list { display: grid; gap: 1.4rem; padding: 0; list-style: none; }
+.list li { display: grid; gap: 0.15rem; }
+.list h3, .list .t { font-size: 1.0625rem; font-weight: 500; line-height: 1.4; text-wrap: balance; }
+.sub { color: var(--ink-2); }
+.sub b { font-weight: 600; color: var(--ink); }
+
+/* Footer */
+footer { display: grid; gap: 0.5rem; margin-top: clamp(64px, 9vw, 112px); padding-top: 1.1rem; border-top: 1px solid var(--rule); }
+.contact { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.9rem; }
+.contact .label { font-style: italic; color: var(--ink-3); }
+.addr { user-select: all; }
+button {
+  padding: 0.05rem 0.65rem;
+  font: inherit;
+  font-size: 0.88rem;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  cursor: pointer;
+}
+button:hover { border-color: var(--ink-3); }
+.note { font-size: 0.88rem; color: var(--ink-3); }
+
+/* Real content: the headline keeps the width of the About text; long DOIs wrap on phones */
+.field { max-width: 38rem; }
+.doi a { overflow-wrap: anywhere; }
+img.ph { display: block; width: 100%; object-fit: cover; }
+
+/* Draft view (?draft): each empty field is a quiet gray slot that names what goes there */
+.slot {
+  display: inline-block;
+  padding: 0 0.5em;
+  font-size: 0.85rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--ink-3);
+  background: var(--wash);
+  border: 1px dashed var(--rule);
+  border-radius: 2px;
+}

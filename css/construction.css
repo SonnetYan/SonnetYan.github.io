@@ -1,0 +1,25 @@
+/* The holding page before her birthday (js/construction.js). Same paper, ink and type as the site. */
+
+.construction {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  gap: 0.55rem;
+  padding: 16px;
+  text-align: center;
+  background: var(--paper);
+}
+.construction .line { font-size: clamp(1.25rem, 3vw, 1.6rem); font-weight: 380; letter-spacing: -0.005em; }
+.construction .site { font-size: 0.85rem; letter-spacing: 0.06em; color: var(--ink-3); }
+
+/* The secret period: a bigger tap target than it looks, and no hint that it does anything. */
+.construction [data-secret] {
+  display: inline-block;
+  padding: 0.6em 0.7em;
+  margin: -0.6em -0.7em;
+  cursor: default;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
