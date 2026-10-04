@@ -23,10 +23,20 @@ export function phaseAt(ms) {
   return "site";
 }
 
-export function decidePhase(nowMs, search = "") {
+function overrides(search) {  // the valid ?preview and ?now values, or null for each
   const query = new URLSearchParams(search);
   const preview = query.get("preview");
-  if (PHASES.includes(preview)) return preview;
   const pretend = Date.parse(query.get("now") ?? "");
-  return phaseAt(Number.isNaN(pretend) ? nowMs : pretend);
+  return { preview: PHASES.includes(preview) ? preview : null, now: Number.isNaN(pretend) ? null : pretend };
+}
+
+export function decidePhase(nowMs, search = "") {
+  const { preview, now } = overrides(search);
+  return preview ?? phaseAt(now ?? nowMs);
+}
+
+// True when the URL fixes the phase (a valid ?preview or ?now), so the page should not follow the clock.
+export function isPinned(search = "") {
+  const { preview, now } = overrides(search);
+  return preview !== null || now !== null;
 }

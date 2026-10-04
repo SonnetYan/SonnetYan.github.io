@@ -3,7 +3,7 @@
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { BIRTHDAY_START, BIRTHDAY_END, phaseAt, decidePhase } from "../js/clock.js";
+import { BIRTHDAY_START, BIRTHDAY_END, phaseAt, decidePhase, isPinned } from "../js/clock.js";
 
 const at = (iso) => Date.parse(iso);
 
@@ -44,4 +44,14 @@ test("?now pretends a moment; a bad value is ignored", () => {
   assert.equal(decidePhase(now, "?now=2026-10-20"), "site");
   assert.equal(decidePhase(now, "?now=tomorrow"), "construction");
   assert.equal(decidePhase(now, ""), "construction");
+});
+
+test("only a valid ?preview or ?now pins the phase", () => {
+  assert.equal(isPinned(""), false);
+  assert.equal(isPinned("?draft"), false);
+  assert.equal(isPinned("?preview=nonsense"), false);
+  assert.equal(isPinned("?preview="), false);
+  assert.equal(isPinned("?now=tomorrow"), false);
+  assert.equal(isPinned("?preview=site"), true);
+  assert.equal(isPinned("?now=2026-10-14"), true);
 });

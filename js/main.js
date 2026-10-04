@@ -15,7 +15,7 @@ import { render } from "./render.js";
 import { startRouter } from "./router.js";
 import { wireCopyEmail } from "./copy-email.js";
 import { mountHero } from "./hero/view.js";
-import { BIRTHDAY_START, decidePhase } from "./clock.js";
+import { BIRTHDAY_START, decidePhase, isPinned } from "./clock.js";
 import { showConstruction } from "./construction.js";
 import { playBirthday } from "./birthday.js";
 
@@ -44,9 +44,9 @@ function site() {
 }
 
 // A holding page left open: switch when the birthday starts (a timer, plus a check whenever the tab
-// comes back, since background timers may be late). Not when ?preview or ?now pins the phase.
+// comes back, since background timers may be late). Not when a valid ?preview or ?now pins the phase.
 function watchClock(hide) {
-  if (/[?&](preview|now)=/.test(location.search)) return;
+  if (isPinned(location.search)) return;
   const check = () => {
     if (root.dataset.phase !== "construction") return;
     const phase = decidePhase(Date.now());

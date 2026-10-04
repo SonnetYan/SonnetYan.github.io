@@ -166,7 +166,10 @@ export function playBirthday(words, { onReveal = () => {}, onDone = () => {} } =
   }
 
   function skip() { if (t >= 0.6) lift(SKIP_LIFT); }
-  function onKey(event) { if (["Enter", " ", "Escape"].includes(event.key)) { event.preventDefault(); skip(); } }
+  function onKey(event) {
+    if (event.key === "Tab") { event.preventDefault(); box.focus({ preventScroll: true }); return; }  // focus stays here
+    if (["Enter", " ", "Escape"].includes(event.key)) { event.preventDefault(); skip(); }
+  }
 
   box.hidden = false;
   document.documentElement.style.overflow = "hidden";
