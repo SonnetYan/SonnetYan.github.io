@@ -27,8 +27,8 @@ export function render(SITE, { draft = false } = {}) {
       : draft ? el("div", { class: "ph", text: p.kind ? `photo: ${p.kind}` : "photo" }) : null;
     return el("article", { class: "tile" },
       photo,
-      textOrSlot("h3", {}, p.name, "project name"),
-      textOrSlot("p", {}, p.text, "one line on what it is"),
+      filled(p.link) ? el("h3", {}, el("a", { href: p.link, text: p.name })) : textOrSlot("h3", {}, p.name, "project name"),
+      textOrSlot("p", {}, full ? p.text : (p.short || p.text), "one line on what it is"),
       full && textOrSlot("p", { class: "meta" }, p.tools, "tools"));
   }
 

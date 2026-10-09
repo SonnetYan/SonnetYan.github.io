@@ -24,6 +24,9 @@ js/hero/filter.js     the hero's particle filter: math only
 js/hero/view.js       the hero on screen: drawing, timing, clicks
 tests/clock.test.js   pins the birthday window
 cv.pdf                generated from a LaTeX source kept outside this repo; replace it, do not edit it
+og.png                the picture shown when a link is shared (1200 x 630): the hero after its opening, made by a
+                      screenshot script kept outside this repo; remake it when the hero or the name changes
+favicon.svg           the tab icon: the hero in miniature, follows the light or dark theme
 .nojekyll             tells Pages to serve the files as they are
 ```
 
@@ -32,6 +35,7 @@ Each file starts with a comment that says what it does and what it leaves to oth
 ## Editing content
 
 Change `js/content.js`, then update `updated` there. Empty fields stay off the page.
+A project with an empty `link` shows without one; fill in the address when the project has a public home.
 The fixed words around the content (section headings, link labels, the holding page, meta tags) are in
 `index.html` and `js/render.js`.
 Open the page with `?draft` to see every empty field as a gray slot that names what goes there.
@@ -67,8 +71,8 @@ node --test tests/clock.test.js  # Node 22 or newer
 ## Publishing
 
 Commit to `main` and push; Pages updates in about a minute. Commit messages are in English.
-The custom domain goes in a file named `CNAME` (one line, `sonnetyan.com`) once the domain's DNS points
-at GitHub Pages; without it the site is at https://sonnetyan.github.io/.
+`CNAME` holds the custom domain, `sonnetyan.com`; keep it. Its DNS points at GitHub Pages, and
+https://sonnetyan.github.io/ redirects there.
 
 ## After the birthday
 

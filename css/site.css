@@ -65,8 +65,10 @@ a {
   text-decoration-color: var(--rule);
 }
 a:hover { text-decoration-color: currentColor; }
-a:focus-visible, button:focus-visible, h1:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
-h1:focus:not(:focus-visible) { outline: none; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+/* Headings take focus only so the keyboard and screen readers start in the right place (main.js, router.js).
+   They never get a frame: in Chinese custom, a black box around a person's name marks a death notice. */
+h1:focus { outline: none; }
 
 .links { display: flex; flex-wrap: wrap; gap: 0.3rem 1.4rem; }
 

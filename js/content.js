@@ -85,15 +85,40 @@ export const SITE = {
   },
   making: {
     line: "Small projects in code, 3D printing, and more.",
-    lede: "Things I make in code, 3D printing, and more. Some are just for fun.",
-    projects: []
+    lede: "Things I make in code, 3D printing, and more. Some are just for fun. These days I design and direct them, and AI agents write much of the code.",
+    // Each project: name, short (one line for the home page), text (one or two sentences, on the Making page),
+    // tools (year first), link ("" until it has a public home),
+    // photo (a path under the site, or ""), kind (what the photo will show; draft view only), home (true: also on the home page).
+    projects: [
+      {
+        name: "Nagi",
+        short: "A personal AI workbench I use every day.",
+        text: "A personal AI workbench: chat, tasks, reminders, and a long memory, with an app for the phone. I use it every day.",
+        tools: "2026. TypeScript, React, Node.js, SQLite, Claude Agent SDK",
+        link: "", photo: "", kind: "screenshot", home: true
+      },
+      {
+        name: "M5Stack desk terminal",
+        short: "A tiny desk computer with a language model on board.",
+        text: "A tiny desk computer you swipe between little apps: a focus timer, a small Claude robot, and a voice creature still learning to listen. A small language model runs on the device itself.",
+        tools: "2026. MicroPython, M5Stack Core2, Module LLM",
+        link: "", photo: "", kind: "the device on a desk", home: true
+      },
+      {
+        name: "Ignition",
+        short: "A small offline tool for getting started on a task.",
+        text: "A small offline tool for getting started: write each task with its smallest first step, draw one at random, and start a short timer.",
+        tools: "2026. HTML, CSS, JavaScript; runs in the browser, no server",
+        link: "", photo: "", kind: "screenshot", home: true
+      }
+    ]
   },
   now: {
     updated: "",
     items: [["Working on", ""], ["Learning", ""], ["Making", ""]]
   },
   email: "mingxi@sonnetyan.com",
-  updated: "2026-10-04"
+  updated: "2026-10-09"
 };
 // The birthday greeting (js/birthday.js), shown on her birthday only (js/clock.js).
 export const BIRTHDAY = {
