@@ -85,7 +85,7 @@ export const SITE = {
   },
   making: {
     line: "Small projects in code, 3D printing, and more.",
-    lede: "Things I make in code, 3D printing, and more. Some are just for fun. These days I design and direct them, and AI agents write much of the code.",
+    lede: "Things I make in code, 3D printing, and more. Some are just for fun.",
     // Each project: name, short (one line for the home page), text (one or two sentences, on the Making page),
     // tools (year first), link ("" until it has a public home),
     // photo (a path under the site, or ""), kind (what the photo will show; draft view only), home (true: also on the home page).
